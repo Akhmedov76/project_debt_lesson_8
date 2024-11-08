@@ -105,3 +105,4 @@ REST_FRAMEWORK = {
 }
 
 APPEND_SLASH = True
+AUTH_USER_MODEL = 'app_users.UserModel'
