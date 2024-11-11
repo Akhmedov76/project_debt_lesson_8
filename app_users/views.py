@@ -5,14 +5,14 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from .models import UserModel
-from .serializers import RegisterUserSerializer, LoginUserSerializer, UserModelSerializer
+from .serializers import *
 
 
 @api_view(['POST'])
 def register_user_view(request):
     if request.method == 'POST':
         data = request.data
-        serializer = RegisterUserSerializer(data=data)
+        serializer = RegistrationSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -21,7 +21,7 @@ def register_user_view(request):
 def login_user_view(request):
     if request.method == 'POST':
         data = request.data
-        serializer = LoginUserSerializer(data=data)
+        serializer = LoginSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
